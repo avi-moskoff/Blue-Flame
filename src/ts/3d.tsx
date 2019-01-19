@@ -20,7 +20,7 @@ export class Pane3D extends React.Component {
         // set up the scene
 		this.scene = new THREE.Scene()
 		
-        let light1 = new THREE.PointLight(0xFF8F8F, 1.0)
+        let light1 = new THREE.PointLight(0xEFEFFF, 1.0)
         light1.position.set(15, -10, 10)
         this.camera.add(light1)
 
