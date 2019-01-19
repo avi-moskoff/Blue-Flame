@@ -12,15 +12,23 @@
 
 	<style>
 		body {
-			background-color: rgb(59, 66, 82);
+			background-color: #FFF;
 		}
 		
-		.pane3D {
+		.pane3D #pane3D {
 			width: 900px;
 			height: 350px;
-			background-color: rgb(76, 86, 106);
+			background-color: #FFF;
 			border-radius: 4px;
 			margin-bottom: 4px;
+		}
+
+		.pane3D {
+			padding: 3px;
+			width: 900px;
+			height: 350px;
+			background-image: linear-gradient(to bottom, rgb(82, 129, 168) 0%, rgb(110, 212, 251) 100%);
+			border-radius: 4px;
 		}
 
 		.left {
@@ -28,15 +36,22 @@
 		}
 
 		.left>div {
-			background-color: rgb(76, 86, 106);
-			color: rgb(34, 39, 48);
+			background-image: linear-gradient(to bottom, rgb(82, 129, 168) 0%, rgb(110, 212, 251) 100%);
 			border-radius: 100%;
 			width: 100px;
 			height: 100px;
-			padding: 5px;
+			padding: 3px;
+			margin-bottom: 20px;
+		}
+
+		.left>div>div {
+			background-color: #FFF;
 			line-height: 100px;
 			font-size: 50pt;
 			text-align: center;
+			width: 100px;
+			height: 100px;
+			border-radius: 100%;
 		}
 
 		.right {
@@ -73,27 +88,12 @@
 <body>
 	<!-- 3D pane where spiroedge is shown off and you can rotate it around and shit -->
 	<div>
-		<div class="left">
-			<div>
-				<i class="fas fa-thermometer-half"></i>
-				<div style="background-image: url('./data/icons/temp.png'); background-repeat: no-repeat; background-position: 50%; width: 100%; height: 100%; position: absolute; padding: 5px;"></div>
-			</div>
-			<div>
-				<i class="fas fa-fire"></i>
-			</div>
-			<div>
-				<i class="fas fa-lightbulb"></i>
-			</div>
-			<div>
-				<i class="fas fa-cloud"></i>
-			</div>
-			<div>
-				<i class="fas fa-wifi"></i>
-			</div>
-		</div>
-
 		<div class="right">
-			<div class="pane3D" id="pane3D"></div>
+			<div class="pane3D">
+				<div id="pane3D">
+
+				</div>
+			</div>
 			<div class="camera">
 				<img src="./data/images/1547916889354.jpg" />
 			</div>
@@ -101,6 +101,14 @@
 			<div class="thermal" id="thermalCamera">
 
 			</div>
+		</div>
+		
+		<div class="left">
+			<div><div id="temp" style="background-image: url('./data/icons/temp1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 45px;"></div></div>
+			<div><div id="flame" style="background-image: url('./data/icons/flame1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div></div>
+			<div><div id="lightbulb" style="background-image: url('./data/icons/lightbulb1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div></div>
+			<div><div id="cloud" style="background-image: url('./data/icons/cloud1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 70px;"></div></div>
+			<div><div id="proximity" style="background-image: url('./data/icons/proximity1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div></div>
 		</div>
 	</div>
 <script type="text/javascript" src="js/bundle.min.js"></script></body>
