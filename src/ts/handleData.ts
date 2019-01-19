@@ -8,8 +8,8 @@ interface SensorData {
 	},
 	orientation: {
 		x: number, // yaw
-		y: number, // pitch?
-		z: number // roll?
+		y: number, // pitch
+		z: number // roll
 	},
 	proximity: {
 		proximity: number,
