@@ -87,7 +87,7 @@ export class Pane3D extends React.Component {
         this.camera.position.y = position.y
         this.camera.position.z = position.z
         this.camera.updateProjectionMatrix()
-    }
+	}
 
     private async loadObject(mtlFile: string, file: string): Promise<THREE.Group> {
         let objectLoader = new OBJLoader()

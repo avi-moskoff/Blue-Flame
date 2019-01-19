@@ -45,14 +45,13 @@ export default class ThermalCamera extends React.Component<any, ThermalPropertie
 		for(let y = 0; y < 8; y++) {
 			for(let x = 1; x < 8; x++) {
 				let angle = (0.66 - 0) / (20 - 32) * this.state.thermalData[x][y] + 1.76
-				console.log(angle, this.state.thermalData[x][y])
 
 				// clamp value
 				if(angle < 0) {
 					angle = 0
 				}
-				else if(angle > 1) {
-					angle = 1
+				else if(angle > 0.66) {
+					angle = 0.66
 				}
 
 				let color = this.HSVtoRGB(angle, 1, 1)
