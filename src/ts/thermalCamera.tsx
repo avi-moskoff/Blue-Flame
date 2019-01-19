@@ -28,8 +28,8 @@ export default class ThermalCamera extends React.Component<any, ThermalPropertie
 		let elementKey = 0
 
 		// create blocks of thermal data, that will change color and shit
-		for(let x = 0; x < 8; x++) {
-			for(let y = 0; y < 8; y++) {
+		for(let y = 0; y < 8; y++) {
+			for(let x = 1; x < 8; x++) {
 				let color = (1 - this.state.thermalData[x][y] / 40) * 255
 				elements.push(<div className="thermalBlock" key={elementKey} style={{
 					backgroundColor: `rgb(${color}, ${color}, ${color})`
