@@ -38,9 +38,7 @@ export default class ThermalCamera extends React.Component<any, ThermalPropertie
 			}
 		}
 		
-		return <div>
-			{elements}
-		</div>
+		return <div>{elements}</div>
 	}
 
 	public setThermalData(data: any[][]): void {
