@@ -1,12 +1,11 @@
 import * as React from "react"
 import * as THREE from "three"
-import { resolve } from "path";
 import { MTLLoader, OBJLoader } from 'three-obj-mtl-loader'
 
 
 // code for handling the 3D rendering of the spiroedge
 export class Pane3D extends React.Component {
-    private camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera(45, 1920 / 1080, 1, 1000)
+    private camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera(20, 900 / 350, 1, 1000)
     private scene: THREE.Scene
     private ambientLight: THREE.AmbientLight
     private loadingManager: THREE.LoadingManager
@@ -19,69 +18,78 @@ export class Pane3D extends React.Component {
         super(props)
 
         // set up the scene
-        this.scene = new THREE.Scene()
-        this.ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.4)
+		this.scene = new THREE.Scene()
+		
+        let light1 = new THREE.PointLight(0xFF8F8F, 1.0)
+        light1.position.set(15, -10, 10)
+        this.camera.add(light1)
 
-        this.setCameraPosition(new THREE.Vector3(0, 0, 20))
+        let light2 = new THREE.PointLight(0xFFFFFF, 1.0)
+        light2.position.set(-15, 10, 10)
+        this.camera.add(light2)
 
-        // this.camera.add(new THREE.PointLight(0xFFFFFF, 0.8))
+		this.setCameraPosition(new THREE.Vector3(-15, 7, 15))
+		this.setCameraLookAt(new THREE.Vector3(0, 0, 0))
+
         this.scene.add(this.camera)
         this.scene.add(this.ambientLight)
 
         this.loadingManager = new THREE.LoadingManager()
-        this.loadingManager.onLoad = this.onLoad.bind(this)
 
         this.renderer = new THREE.WebGLRenderer({
             antialias: true,
             alpha: true
         })
         this.renderer.setPixelRatio(1)
-        this.renderer.setSize(1920, 1080)
+        this.renderer.setSize(900, 350)
 
         this.loadObject("./data/pi.mtl", "./data/pi.obj").then((object: THREE.Group) => {
-            this.object = object
-            this.renderGL()
+			this.object = object
+			object.position.y = 1
+			
+			this.loadObject("./data/axies.mtl", "./data/axies.obj").then((object: THREE.Group) => {
+				this.renderGL()
+			})
         })
     }
 
-    render() {
+    public render(): JSX.Element {
         document.getElementById("pane3D").appendChild(this.renderer.domElement)
-        return ""
+        return <div>
+
+		</div>
     }
 
-    renderGL() {
+    public renderGL(): void {
 		let deltaTime = (performance.now() - this.lastRender) / 1000
 		
 		this.renderer.render(this.scene, this.camera)
         requestAnimationFrame(this.renderGL.bind(this))
 
-		this.object.setRotationFromEuler(new THREE.Euler(0, ))
-		
-		this.object.rotation.y += deltaTime
-
 		this.tick++
 		
 		this.lastRender = performance.now()
-    }
+	}
 
-    setCameraLookAt(vector: THREE.Vector3) {
+	public setBoardRotation(pitch: number, yaw: number, roll: number): void {
+		this.object.rotation.x = pitch
+		this.object.rotation.y = yaw
+		this.object.rotation.z = roll
+	}
+
+    public setCameraLookAt(vector: THREE.Vector3): void {
         this.camera.lookAt(vector)
         this.camera.updateProjectionMatrix()
     }
     
-    setCameraPosition(position: THREE.Vector3) {
+    public setCameraPosition(position: THREE.Vector3): void {
         this.camera.position.x = position.x
         this.camera.position.y = position.y
         this.camera.position.z = position.z
         this.camera.updateProjectionMatrix()
     }
 
-    // called when we're finished loading an asset using this.loadingManager
-    onLoad() {
-        
-    }
-
-    loadObject(mtlFile: string, file: string) {
+    private async loadObject(mtlFile: string, file: string): Promise<THREE.Group> {
         let objectLoader = new OBJLoader()
         return new Promise<THREE.Group>((resolve, reject) => {
 			let mtlLoader = new MTLLoader()
