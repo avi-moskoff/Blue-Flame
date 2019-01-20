@@ -1,11 +1,27 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
+import { Data } from "./data";
+import handleData from "./handleData";
+import { Pane3D } from "./3d";
+import ThermalCamera from "./thermalCamera";
+import Graph from "./graph";
 
-export default class Timeline extends React.Component {
+interface props {
+	pane: Pane3D,
+	thermal: ThermalCamera,
+	temperatueGraph: Graph,
+	tvocGraph: Graph,
+	lightGraph: Graph,
+	co2Graph: Graph,
+	proximityGraph: Graph
+}
+
+export default class Timeline extends React.Component<props> {
 	private autoCurrentTime: number = 0
 	private autoDirection: number = 1
 	private autoStep: number = 0.005 // 0.5%
 	private autoTickActive: boolean = false
+	private data: Data = new Data()
 	
 	
 	
@@ -60,8 +76,8 @@ export default class Timeline extends React.Component {
 
 	// called when the range is changed
 	private onRangeChange(event: React.ChangeEvent<HTMLInputElement>): void {
-		let value = event.target.value
-		this.setTime(0)
+		let value = parseInt(event.target.value)
+		this.setTime(value / 10000)
 	}
 
 	// time is in percent, 100% == present time
@@ -70,6 +86,33 @@ export default class Timeline extends React.Component {
 			let range = ReactDOM.findDOMNode(this.refs.range) as HTMLInputElement
 			range.value = `${time * 10000}`
 		}
+
+		let unixTime = this.data.percentToTimestamp(time)
+
+		let tempData = this.data.getIrCam(unixTime)
+		let sensorData = this.data.getSensorData(unixTime)
+		handleData(sensorData, tempData, this.props.thermal, this.props.pane)
+
+		let sensorArray = this.data.getSensorDataArray(unixTime)
+		// build various array values
+		let temperatureArray = []
+		let tvocArray = []
+		let lightArray = []
+		let co2Array = []
+		let proximityArray = []
+		for(let data of sensorArray) {
+			temperatureArray.push(data.temperature.temperature)
+			tvocArray.push(data.gas.tvoc)
+			lightArray.push(data.proximity.ambientlight)
+			co2Array.push(data.gas.eco2)
+			proximityArray.push(data.proximity.proximity)
+		}
+
+		this.props.temperatueGraph.setData(temperatureArray)
+		this.props.tvocGraph.setData(tvocArray)
+		this.props.lightGraph.setData(lightArray)
+		this.props.co2Graph.setData(co2Array)
+		this.props.proximityGraph.setData(proximityArray)
 	}
 
 	// when called, automatically increments the timeline forwards by a certain amount per second

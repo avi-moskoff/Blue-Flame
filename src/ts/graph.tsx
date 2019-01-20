@@ -2,8 +2,9 @@ import * as React from "react"
 
 import * as ReactChart from 'react-chartjs-2'
 
-class state {
-	date: Date
+interface state {
+	date: Date,
+	data: number[]
 }
 
 interface properties {
@@ -12,16 +13,28 @@ interface properties {
 }
 
 export default class Graph extends React.Component<properties, state> {
+	private labels: string[]
+
+	
+	
 	constructor(props) {
 		super(props);
-		this.state = { date: new Date() };
+		this.state = {
+			date: new Date(),
+			data: []
+		};
+
+		this.labels = []
+		for(let i = 0; i < 50; i++) {
+			this.labels.push(`${i}`)
+		}
 	}
 
 	render() {
 		return (
 			<div>
 				<ReactChart.Line data={{
-					labels: ['0', '1', '2', '3', '4'],
+					labels: this.labels,
 					datasets: [{
 						label: this.props.graphName,
 						fill: false,
@@ -31,7 +44,7 @@ export default class Graph extends React.Component<properties, state> {
 						pointBorderColor: "rgb(110, 212, 251)",
 						pointHoverBackgroundColor: "rgb(110, 212, 251)",
 						pointHoverBorderColor: "rgb(110, 212, 251)",
-						data: [1, 2, 3, 20, 10]
+						data: this.state.data
 					}]
 				}} height={106} options={{
 					maintainAspectRatio: false,
@@ -58,5 +71,11 @@ export default class Graph extends React.Component<properties, state> {
 				}} />
 			</div>
 		);
+	}
+
+	public setData(data: number[]): void {
+		this.setState({
+			data: data
+		})
 	}
 }
