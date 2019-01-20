@@ -12,15 +12,19 @@
 
 	<style>
 		body {
-			background-color: #FFF;
+			background-color: #F5F5F5;
+			font-family: 'Open Sans';
+			color: #444;
+			padding: 0% 7% 0% 7%;
 		}
 		
 		.pane3D #pane3D {
 			width: 900px;
 			height: 350px;
-			background-color: #FFF;
+			background-color: #F5F5F5;
 			border-radius: 4px;
 			margin-bottom: 4px;
+			background-image: linear-gradient(to bottom, rgb(245, 245, 245) 0%, #E9F8FF 100%);
 		}
 
 		.pane3D {
@@ -45,7 +49,7 @@
 		}
 
 		.left>div>div {
-			background-color: #FFF;
+			background-color: #F5F5F5;
 			line-height: 100px;
 			font-size: 50pt;
 			text-align: center;
@@ -64,6 +68,8 @@
 			width: 48.4%;
 			
 			border-radius: 4px;
+			vertical-align: top;
+			text-align: center;
 		}
 
 		.camera img {
@@ -75,6 +81,7 @@
 			display: inline-block;
 			width: 48.4%;
 			margin-left: 2%;
+			text-align: center;
 		}
 
 		.thermalBlock {
@@ -89,26 +96,40 @@
 	<!-- 3D pane where spiroedge is shown off and you can rotate it around and shit -->
 	<div>
 		<div class="right">
-			<div class="pane3D">
-				<div id="pane3D">
+			<div style="text-align: center;">
+				<div class="pane3D">
+					<div id="pane3D">
 
+					</div>
 				</div>
-			</div>
-			<div class="camera">
-				<img src="./data/images/1547916889354.jpg" />
+				<span style="line-height: 2;">Sensor Rotation</span>
 			</div>
 
-			<div class="thermal" id="thermalCamera">
+			<hr style="border: 0; height: 1px; background-color: #CCC; width: 50%; margin: 4px auto 15px auto;" />
 
+			<div>
+				<div class="camera">
+					<div>
+						<img src="./data/images/1547916889354.jpg" />
+					</div>
+					Webcam Image
+				</div>
+
+				<div class="thermal">
+					<div id="thermalCamera">
+
+					</div>
+					Thermal Camera
+				</div>
 			</div>
 		</div>
 		
 		<div class="left">
-			<div><div id="temp" style="background-image: url('./data/icons/temp1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 45px;"></div></div>
-			<div><div id="flame" style="background-image: url('./data/icons/flame1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div></div>
-			<div><div id="lightbulb" style="background-image: url('./data/icons/lightbulb1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div></div>
-			<div><div id="cloud" style="background-image: url('./data/icons/cloud1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 70px;"></div></div>
-			<div><div id="proximity" style="background-image: url('./data/icons/proximity1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div></div>
+			<div><div id="temp" style="background-image: url('./data/icons2/temp1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 38px;"></div></div>
+			<div><div id="flame" style="background-image: url('./data/icons2/flame1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 70px;"></div></div>
+			<div><div id="lightbulb" style="background-image: url('./data/icons2/lightbulb1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div></div>
+			<div><div id="cloud" style="background-image: url('./data/icons2/cloud1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 85px;"></div></div>
+			<div><div id="proximity" style="background-image: url('./data/icons2/proximity1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 72px;"></div></div>
 		</div>
 	</div>
 <script type="text/javascript" src="js/bundle.min.js"></script></body>
