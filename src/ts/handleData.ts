@@ -1,25 +1,6 @@
 import ThermalCamera from "./thermalCamera";
 import { Pane3D } from "./3d";
-
-interface SensorData {
-	gas: {
-		eco2: number, // parts per million
-		tvoc: number // parts per billion 
-	},
-	orientation: {
-		x: number, // yaw
-		y: number, // pitch
-		z: number // roll
-	},
-	proximity: {
-		proximity: number, // range from 0-2^16
-		ambientlight: number // range from 0-2^16
-	},
-	temperature: {
-		temperature: number // celcius
-	},
-	timestamp: number
-}
+import SensorData from "./sensorData"
 
 export default function handleData(json: SensorData, temperature: any[][], thermalCamera: ThermalCamera, pane3d: Pane3D) {
 	pane3d.setBoardRotation(json.orientation.y * Math.PI / 180, json.orientation.x * Math.PI / 180, json.orientation.z * Math.PI / 180)
