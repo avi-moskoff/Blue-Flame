@@ -1,8 +1,8 @@
 import IrCam from './irCam'
 import SensorData from './sensorData'
 
-import * as irCamJson from '../../dist/data/sensors/localsensors.json'
-import * as sensorDataJson from '../../dist/data/sensors/ircam.json'
+import * as irCamJson from '../../dist/data/sensors/localsensorsnew.json'
+import * as sensorDataJson from '../../dist/data/sensors/ircamnew.json'
 import * as imageJson from '../../dist/data/sensors/imageIndex.json'
 
 export class Data {
@@ -10,14 +10,28 @@ export class Data {
 
     sensorData: SensorData[]
     
-    image: number[]
+	image: number[]
+	
+	private lastImage: number = -1
+	private maxTimestamp: number
+	private minTimestamp: number
 
 	constructor() {
 		this.irCam = <IrCam[]>irCamJson
 
         this.sensorData = <SensorData[]>sensorDataJson
         
-        this.image = <number[]>imageJson
+		this.image = <number[]>imageJson
+		
+		// finds a break in the data
+		/*for(let i = 0; i < this.sensorData.length - 1; i++) {
+			let test1 = this.sensorData[i].timestamp
+			let test2 = this.sensorData[i + 1].timestamp
+
+			if(test2 - test1 > 5 * 60 * 1000) {
+				console.log(`found big break ${test1} ${test2} ${Math.abs(test1 - test2) / 1000 / 60} minutes`)
+			}
+		}*/
 	}
 
 	getIrIndex(timeStamp: number): number {
@@ -42,14 +56,17 @@ export class Data {
     
     public getClosestImage(timeStamp: number): number {
         for (let i = 0; i < this.image.length; i++) {
-			if (this.image[i] >= timeStamp) {
-				return i
+			if(this.image[i] >= timeStamp) {
+				this.lastImage = this.image[i]
+				return this.image[i]
 			}
 		}
+
+		return this.lastImage
     }
 
 	getSensorIndex(timeStamp: number): number {
-		for (let i = 0; i < this.irCam.length; i++) {
+		for (let i = 0; i < this.sensorData.length; i++) {
 			if (this.sensorData[i].timestamp >= timeStamp) {
 				return i
 			}
@@ -69,11 +86,33 @@ export class Data {
 	}
 
 	public getMaxTimestamp(): number {
-		return this.irCam[this.irCam.length - 1].timestamp
+		// return this.irCam[this.irCam.length - 1].timestamp
+
+		if(this.maxTimestamp == undefined) {
+			this.maxTimestamp = -10000000
+			for(let cam of this.sensorData) {
+				if(cam.timestamp > this.maxTimestamp) {
+					this.maxTimestamp = cam.timestamp
+				}
+			}
+		}
+
+		return this.maxTimestamp
 	}
 
 	public getMinTimestamp(): number {
-		return this.irCam[0].timestamp
+		// return this.irCam[0].timestamp
+
+		if(this.minTimestamp == undefined) {
+			this.minTimestamp = 100000000000000
+			for(let cam of this.sensorData) {
+				if(cam.timestamp < this.minTimestamp) {
+					this.minTimestamp = cam.timestamp
+				}
+			}
+		}
+
+		return this.minTimestamp
 	}
 
 	public percentToTimestamp(percent: number): number {

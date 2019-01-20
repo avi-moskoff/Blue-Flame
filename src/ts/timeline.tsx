@@ -8,14 +8,19 @@ import Graph from "./graph";
 
 
 function fancyInterpolation(percent, ranges) {
-	for(let range of ranges) {
-		if(percent < range.limit) {
-			let fakePercent = percent / range.limit
-			// return the interpolated value
+	for(let i = 0; i < ranges.length; i++) {
+		let range = ranges[i]
+
+		if(percent <= range.limit) {
+			let olderRangeLimit = 0
+			if(i > 0) {
+				olderRangeLimit = ranges[i - 1].limit
+			}
+
+			let fakePercent = (1 / (range.limit - olderRangeLimit)) * (percent - olderRangeLimit)
 			return (range.max - range.min) * fakePercent + range.min
 		}
 	}
-
 	return undefined
 }
 
@@ -55,6 +60,8 @@ export default class Timeline extends React.Component<props> {
 		super(props)
 
 		this.autoTick()
+
+		console.log(this)
 	}
 
 	public render(): JSX.Element {
@@ -108,6 +115,18 @@ export default class Timeline extends React.Component<props> {
 
 	// time is in percent, 100% == present time
 	private setTime(time: number, applyToRange: boolean = false): void {
+		// modifiy time value
+		/*time = fancyInterpolation(time, [{
+			min: 1547877444309,
+			max: 1547883678408,
+			limit: 0.2
+		}, {
+			min: 1547918415326,
+			max: 1547962223999,
+			limit: 1.0
+		}])*/
+		
+		
 		if(applyToRange) {
 			let range = ReactDOM.findDOMNode(this.refs.range) as HTMLInputElement
 			range.value = `${time * 10000}`
@@ -117,7 +136,10 @@ export default class Timeline extends React.Component<props> {
 
 		let tempData = this.data.getIrCam(unixTime)
 		let sensorData = this.data.getSensorData(unixTime)
-		handleData("", sensorData, tempData, this.props.thermal, this.props.pane)
+
+		if(sensorData) {
+			handleData(`../images/${this.data.getClosestImage(unixTime)}.jpg`, sensorData, tempData, this.props.thermal, this.props.pane)
+		}
 
 		let sensorArray = this.data.getSensorDataArray(unixTime)
 		// build various array values
