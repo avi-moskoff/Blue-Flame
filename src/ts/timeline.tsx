@@ -151,9 +151,17 @@ export default class Timeline extends React.Component<props> {
 		for(let data of sensorArray) {
 			temperatureArray.push(data.temperature.temperature)
 			tvocArray.push(data.gas.tvoc)
-			lightArray.push(data.proximity.ambientlight)
 			co2Array.push(data.gas.eco2)
 			proximityArray.push(data.proximity.proximity)
+
+			let light = 3000 - data.proximity.ambientlight
+			if(light > 3000) {
+				light = 3000
+			}
+			else if(light < 0) {
+				light = 0
+			}
+			lightArray.push(light)
 		}
 
 		this.props.temperatueGraph.setData(temperatureArray)
@@ -189,5 +197,8 @@ export default class Timeline extends React.Component<props> {
 	// sets whether or not the autotick is active
 	private setAutoTickActive(input: boolean): void {
 		this.autoTickActive = input
+
+		let range = ReactDOM.findDOMNode(this.refs.range) as HTMLInputElement
+		this.autoCurrentTime = parseInt(range.value) / 10000
 	}
 }

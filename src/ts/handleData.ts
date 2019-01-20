@@ -19,8 +19,10 @@ export default function handleData(imageSrc: string, json: SensorData, temperatu
 	let tempValue = clamp(Math.ceil((5 - 1) / (35 - 20) * json.temperature.temperature - 4), 1, 5)
 	let flameValue = clamp(Math.ceil((3 - 1) / (200 - 50) * json.gas.tvoc - 1 / 3), 1, 5)
 	let cloudValue = clamp(Math.floor((2 - 1) / (430 - 400) * json.gas.eco2 - 12.3333333333), 1, 5)
-	let lightbulbValue = clamp(Math.ceil((6.5 - 1) / (0 - Math.pow(2, 16)) * json.proximity.ambientlight) + 5, 1, 5)
-	let proximityValue = clamp(Math.ceil((3 - 1) / (Math.pow(2, 12) - 0) * (json.proximity.proximity + Math.pow(2, 12) / 10)), 1, 4)
+	let lightbulbValue = clamp(Math.ceil((6.5 - 1) / (0 - 3000) * json.proximity.ambientlight) + 5, 1, 5)
+	let proximityValue = clamp(Math.ceil((3 - 1) / (3000 - 0) * (json.proximity.proximity + 3000 / 10)), 1, 4)
+
+	console.log(json.proximity.ambientlight)
 
 	document.getElementById("temp").style.backgroundImage = `url(./data/icons2/temp${tempValue}.png)`
 	document.getElementById("flame").style.backgroundImage = `url(./data/icons2/flame${flameValue}.png)`

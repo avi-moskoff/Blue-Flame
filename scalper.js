@@ -1,5 +1,11 @@
+// written by Jacob Watson
+
 const http = require('http');
 const fs = require('fs');
+
+function shouldExit() {
+	return fs.existsSync("./1.txt")
+}
 
 async function downloadJSON(url, filePath) {
 	console.log(`Requesting data from ${url}, saving to ${filePath}...`)
@@ -17,16 +23,23 @@ async function downloadJSON(url, filePath) {
 						if(jsonData != undefined) {
 							try {
 								var bufferData = JSON.parse(buffer)
+								bufferData.timestamp = Date.now()
+
+								if(bufferData.gas && bufferData.gas.tvoc) {
+									console.log(`TVOC CHECK VALUE: ${bufferData.gas.tvoc}`)
+								}
+								else if(bufferData.thermalarray) {
+									console.log(`TEMP CHECK VALUE: ${bufferData.thermalarray[4][5]}`)
+								}
+							
+								var jsonObject = JSON.parse(jsonData) // should be an array
+								console.log(`Found ${jsonObject.length} entries of existing data for ${filePath}, adding new response to file...`)
+								jsonObject.push(bufferData)
 							}
 							catch(error) {
 								console.log("caught error trying to process\n")
 								resolve()
 							}
-							bufferData.timestamp = Date.now()
-							
-							var jsonObject = JSON.parse(jsonData) // should be an array
-							console.log(`Found ${jsonObject.length} entries of existing data for ${filePath}, adding new response to file...`)
-							jsonObject.push(bufferData)
 						}
 						else {
 							let bufferData = JSON.parse(buffer)
@@ -35,17 +48,19 @@ async function downloadJSON(url, filePath) {
 							var jsonObject = [bufferData]
 						}
 		
-						// write new jsonObject to the file
-						fs.writeFile(filePath, JSON.stringify(jsonObject), (error) => {
-							if(error != undefined) {
-								console.log("Had scalping error:\n", error)
-							}
-							else {
-								console.log(`Successfully added data to ${filePath}\n`)
-							}
-		
-							resolve()
-						})
+						if(jsonObject != undefined) {
+							// write new jsonObject to the file
+							fs.writeFile(filePath, JSON.stringify(jsonObject), (error) => {
+								if(error != undefined) {
+									console.log("Had scalping error:\n", error)
+								}
+								else {
+									console.log(`Successfully added data to ${filePath}\n`)
+								}
+			
+								resolve()
+							})
+						}
 					})
 				}
 				else {
@@ -72,6 +87,10 @@ async function sleep(miliseconds) {
 
 async function main() {
 	while(true) {
+		if(shouldExit()) {
+			process.exit()
+		}
+		
 		console.log("\n\nNew tick...")
 		await downloadJSON("http://192.168.0.3/gps.json", "./data/gps.json") // get gps data
 		await downloadJSON("http://192.168.0.3/localsensors.json", "./data/localsensors.json") // various sensor data, like temp and air pressure

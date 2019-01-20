@@ -48,8 +48,8 @@ export class Data {
 
 	getIrCamArray(timeStamp: number): IrCam[] {
 		let index = this.getIrIndex(timeStamp)
-		let lowerBound = index < 50 ? 0 : index - 50
-		let upperBound = index + 50 > this.irCam.length ? this.irCam.length : index + 50
+		let lowerBound = index < 25 ? 0 : index - 25
+		let upperBound = index + 25 > this.irCam.length ? this.irCam.length : index + 25
 
 		return this.irCam.slice(lowerBound, upperBound)
     }
@@ -79,8 +79,24 @@ export class Data {
 
 	getSensorDataArray(timeStamp: number): SensorData[] {
 		let index = this.getSensorIndex(timeStamp)
-		let lowerBound = index < 50 ? 0 : index - 50
-		let upperBound = index + 50 > this.sensorData.length ? this.sensorData.length : index + 50
+		let lowerBound = index < 25 ? 0 : index - 25
+		let upperBound = index + 25 > this.sensorData.length ? this.sensorData.length : index + 25
+
+		if(index < 25) {
+			lowerBound = 0
+			upperBound = 50
+		}
+
+		let stylePercent = "50%"
+		if(lowerBound == 0) {
+			stylePercent = `${index * 2}%`
+		}
+
+		document.getElementById("tempGraph").style.backgroundPosition = `${stylePercent} 100%`
+		document.getElementById("flameGraph").style.backgroundPosition = `${stylePercent} 100%`
+		document.getElementById("cloudGraph").style.backgroundPosition = `${stylePercent} 100%`
+		document.getElementById("lightbulbGraph").style.backgroundPosition = `${stylePercent} 100%`
+		document.getElementById("proximityGraph").style.backgroundPosition = `${stylePercent} 100%`
 
 		return this.sensorData.slice(lowerBound, upperBound)
 	}

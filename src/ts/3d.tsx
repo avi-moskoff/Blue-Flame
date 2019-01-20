@@ -13,6 +13,7 @@ export class Pane3D extends React.Component {
     private tick: number = 0
 	private object: THREE.Group
 	private lastRender: number = 0
+	private rotateObject: boolean = false
     
     constructor(props) {
         super(props)
@@ -50,11 +51,18 @@ export class Pane3D extends React.Component {
 			this.loadObject("./data/axies.mtl", "./data/axies.obj").then((object: THREE.Group) => {
 				this.renderGL()
 			})
-        })
+		})
+		
+		console.log(this)
     }
 
     public render(): JSX.Element {
-        document.getElementById("pane3D").appendChild(this.renderer.domElement)
+		document.getElementById("pane3D").appendChild(this.renderer.domElement)
+		
+		this.renderer.domElement.addEventListener("mousedown", () => {
+			this.rotateObject = !this.rotateObject
+		})
+
         return <div>
 
 		</div>
@@ -63,6 +71,10 @@ export class Pane3D extends React.Component {
     public renderGL(): void {
 		let deltaTime = (performance.now() - this.lastRender) / 1000
 		
+		if(this.rotateObject) {
+			this.setBoardRotation(this.object.rotation.x + deltaTime, this.object.rotation.y + deltaTime, 0)	
+		}
+
 		this.renderer.render(this.scene, this.camera)
         requestAnimationFrame(this.renderGL.bind(this))
 
