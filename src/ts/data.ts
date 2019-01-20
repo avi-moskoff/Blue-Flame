@@ -1,8 +1,8 @@
 import IrCam from './irCam'
 import SensorData from './sensorData'
 
-import * as irCamJson from '../../dist/data/sensors/localsensorsnew.json'
-import * as sensorDataJson from '../../dist/data/sensors/ircamnew.json'
+import * as irCamJson from '../../dist/data/sensors/ircam.json'
+import * as sensorDataJson from '../../dist/data/sensors/localsensors.json'
 import * as imageJson from '../../dist/data/sensors/imageIndex.json'
 
 export class Data {
@@ -24,14 +24,14 @@ export class Data {
 		this.image = <number[]>imageJson
 		
 		// finds a break in the data
-		/*for(let i = 0; i < this.sensorData.length - 1; i++) {
+		for(let i = 0; i < this.sensorData.length - 1; i++) {
 			let test1 = this.sensorData[i].timestamp
 			let test2 = this.sensorData[i + 1].timestamp
 
 			if(test2 - test1 > 5 * 60 * 1000) {
 				console.log(`found big break ${test1} ${test2} ${Math.abs(test1 - test2) / 1000 / 60} minutes`)
 			}
-		}*/
+		}
 	}
 
 	getIrIndex(timeStamp: number): number {
