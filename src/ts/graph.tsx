@@ -41,6 +41,7 @@ export default class Graph extends React.Component<properties, state> {
 					tooltips: {
 						callbacks: {
 							label: (item) => `${item.yLabel} ${this.props.unitName}`,
+							title: (item) => this.props.graphName
 						},
 					},
 					scales:{

@@ -12,7 +12,7 @@ let temp = ReactDOM.render(<ThermalCamera></ThermalCamera>, document.getElementB
 ReactDOM.render(<Graph graphName="Temperature" unitName="Celcius"></Graph>, document.getElementById("tempGraph")) as Graph
 ReactDOM.render(<Graph graphName="TVOC" unitName="PPB"></Graph>, document.getElementById("flameGraph")) as Graph
 ReactDOM.render(<Graph graphName="Light" unitName=""></Graph>, document.getElementById("lightbulbGraph")) as Graph
-ReactDOM.render(<Graph graphName="C02 Level" unitName="PPM"></Graph>, document.getElementById("cloudGraph")) as Graph
+ReactDOM.render(<Graph graphName="CO2 Level" unitName="PPM"></Graph>, document.getElementById("cloudGraph")) as Graph
 ReactDOM.render(<Graph graphName="Proximity" unitName=""></Graph>, document.getElementById("proximityGraph")) as Graph
 
 setTimeout(() => {
