@@ -9,11 +9,11 @@ let pane = ReactDOM.render(<Pane3D></Pane3D>, document.getElementById("pane3D"))
 
 let temp = ReactDOM.render(<ThermalCamera></ThermalCamera>, document.getElementById("thermalCamera")) as ThermalCamera
 
-ReactDOM.render(<Graph></Graph>, document.getElementById("tempGraph")) as Graph
-ReactDOM.render(<Graph></Graph>, document.getElementById("flameGraph")) as Graph
-ReactDOM.render(<Graph></Graph>, document.getElementById("lightbulbGraph")) as Graph
-ReactDOM.render(<Graph></Graph>, document.getElementById("cloudGraph")) as Graph
-ReactDOM.render(<Graph></Graph>, document.getElementById("proximityGraph")) as Graph
+ReactDOM.render(<Graph graphName="Temperature" unitName="Celcius"></Graph>, document.getElementById("tempGraph")) as Graph
+ReactDOM.render(<Graph graphName="TVOC" unitName="PPB"></Graph>, document.getElementById("flameGraph")) as Graph
+ReactDOM.render(<Graph graphName="Light" unitName=""></Graph>, document.getElementById("lightbulbGraph")) as Graph
+ReactDOM.render(<Graph graphName="C02 Level" unitName="PPM"></Graph>, document.getElementById("cloudGraph")) as Graph
+ReactDOM.render(<Graph graphName="Proximity" unitName=""></Graph>, document.getElementById("proximityGraph")) as Graph
 
 setTimeout(() => {
 	handleData({

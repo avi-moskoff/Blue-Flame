@@ -18,7 +18,6 @@
 			color: #444;
 			padding: 0% 7% 0% 7%;
 		}
-
 		.pane3D #pane3D {
 			width: 900px;
 			height: 350px;
@@ -27,7 +26,6 @@
 			margin-bottom: 4px;
 			background-image: linear-gradient(to bottom, rgb(245, 245, 245) 0%, #E9F8FF 100%);
 		}
-
 		.pane3D {
 			padding: 3px;
 			width: 900px;
@@ -35,24 +33,18 @@
 			background-image: linear-gradient(to bottom, rgb(82, 129, 168) 0%, rgb(110, 212, 251) 100%);
 			border-radius: 4px;
 		}
-
 		.center {
-			width: 57%;
-			/* height: 5000px; */
-			float: left;
+			width: 70%;
 			margin-left: 30px;
+			display: inline-block;
 		}
-
 		.superleft {
-			width: 45%;
-			float: left;
+			flex-grow: 1;
 		}
-
 		.left {
 			width: 15%;
 			float: left;
 		}
-
 		.left>div {
 			background-image: linear-gradient(to bottom, rgb(82, 129, 168) 0%, rgb(110, 212, 251) 100%);
 			border-radius: 100%;
@@ -63,7 +55,10 @@
 			margin-bottom: 50px;
 			overflow: auto;
 		}
-
+		.center>div {
+			margin-top: 50px;
+			margin-bottom: 50px;
+		}
 		.left>div>div {
 			background-color: #F5F5F5;
 			line-height: 100px;
@@ -73,39 +68,32 @@
 			height: 100px;
 			border-radius: 100%;
 		}
-
 		.right {
-			width: 55%;
+			width: 900px;
 			float: right;
 		}
-
 		.clearfix::after {
 			content: "";
 			clear: both;
 			display: table;
 		}
-
 		.camera {
 			display: inline-block;
 			width: 48.4%;
-
 			border-radius: 4px;
 			vertical-align: top;
 			text-align: center;
 		}
-
 		.camera img {
 			width: 100%;
 			border-radius: 4px;
 		}
-
 		.thermal {
 			display: inline-block;
 			width: 48.4%;
 			margin-left: 2%;
 			text-align: center;
 		}
-
 		.thermalBlock {
 			width: 54px;
 			height: 54px;
@@ -115,64 +103,53 @@
 </head>
 
 <body>
-	<div>
+	<div style="display: flex;">
 		<div class="superleft">
-			<div class="clearfix">
-				<div class="left">
-					<div>
-						<div id="temp" style="background-image: url('./data/icons/temp1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 45px;"></div>
-					</div>
-					<div>
-						<div id="flame" style="background-image: url('./data/icons/flame1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div>
-					</div>
-					<div>
-						<div id="lightbulb" style="background-image: url('./data/icons/lightbulb1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div>
-					</div>
-					<div>
-						<div id="cloud" style="background-image: url('./data/icons/cloud1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 70px;"></div>
-					</div>
-					<div>
-						<div id="proximity" style="background-image: url('./data/icons/proximity1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div>
-					</div>
-				</div>
+			<div class="left">
+					<div><div id="temp" style="background-image: url('./data/icons2/temp1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 38px;"></div></div>
+					<div><div id="flame" style="background-image: url('./data/icons2/flame1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 70px;"></div></div>
+					<div><div id="lightbulb" style="background-image: url('./data/icons2/lightbulb1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div></div>
+					<div><div id="cloud" style="background-image: url('./data/icons2/cloud1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 85px;"></div></div>
+					<div><div id="proximity" style="background-image: url('./data/icons2/proximity1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 72px;"></div></div>
+			</div>
 
-				<div class="center">
-					<div id="tempGraph"></div>
-					<div id="flameGraph"></div>
-					<div id="lightbulbGraph"></div>
-					<div id="cloudGraph"></div>
-					<div id="proximityGraph"></div>
-				</div>
+			<div class="center">
+				<div id="tempGraph"></div>
+				<div id="flameGraph"></div>
+				<div id="lightbulbGraph"></div>
+				<div id="cloudGraph"></div>
+				<div id="proximityGraph"></div>
 			</div>
 		</div>
 
 		<div class="right">
-			<div class="pane3D">
-				<div id="pane3D"></div>
-			</div>
-
-			<div class="camera">
-				<img src="./data/images/1547916889354.jpg" />
-			</div>
-
-			<hr style="border: 0; height: 1px; background-color: #CCC; width: 50%; margin: 4px auto 15px auto;" />
-
-			<div>
-				<div class="camera">
-					<div>
-						<img src="./data/images/1547916889354.jpg" />
+				<div style="text-align: center;">
+					<div class="pane3D">
+						<div id="pane3D">
+	
+						</div>
 					</div>
-					Webcam Image
+					<span style="line-height: 2;">Sensor Rotation</span>
 				</div>
-
-				<div class="thermal">
-					<div id="thermalCamera">
-
+	
+				<hr style="border: 0; height: 1px; background-color: #CCC; width: 50%; margin: 4px auto 15px auto;" />
+	
+				<div>
+					<div class="camera">
+						<div>
+							<img src="./data/images/1547916889354.jpg" />
+						</div>
+						Webcam Image
 					</div>
-					Thermal Camera
+	
+					<div class="thermal">
+						<div id="thermalCamera">
+	
+						</div>
+						Thermal Camera
+					</div>
 				</div>
 			</div>
-		</div>
 	</div>
 </body>
 
