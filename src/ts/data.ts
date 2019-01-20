@@ -3,16 +3,21 @@ import SensorData from './sensorData'
 
 import * as irCamJson from '../../dist/data/sensors/localsensors.json'
 import * as sensorDataJson from '../../dist/data/sensors/ircam.json'
+import * as imageJson from '../../dist/data/sensors/imageIndex.json'
 
 export class Data {
 	irCam: IrCam[]
 
-	sensorData: SensorData[]
+    sensorData: SensorData[]
+    
+    image: number[]
 
 	constructor() {
 		this.irCam = <IrCam[]>irCamJson
 
-		this.sensorData = <SensorData[]>sensorDataJson
+        this.sensorData = <SensorData[]>sensorDataJson
+        
+        this.image = <number[]>imageJson
 	}
 
 	getIrIndex(timeStamp: number): number {
@@ -33,7 +38,15 @@ export class Data {
 		let upperBound = index + 50 > this.irCam.length ? this.irCam.length : index + 50
 
 		return this.irCam.slice(lowerBound, upperBound)
-	}
+    }
+    
+    public getClosestImage(timeStamp: number): number {
+        for (let i = 0; i < this.image.length; i++) {
+			if (this.image[i] >= timeStamp) {
+				return i
+			}
+		}
+    }
 
 	getSensorIndex(timeStamp: number): number {
 		for (let i = 0; i < this.irCam.length; i++) {
@@ -65,5 +78,7 @@ export class Data {
 
 	public percentToTimestamp(percent: number): number {
 		return (this.getMaxTimestamp() - this.getMinTimestamp()) * percent + this.getMinTimestamp()
-	}
+    }
+
+
 }
