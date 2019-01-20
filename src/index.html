@@ -18,14 +18,16 @@
 			color: #444;
 			padding: 0% 7% 0% 7%;
 		}
+
 		.pane3D #pane3D {
 			width: 900px;
 			height: 350px;
 			background-color: #F5F5F5;
 			border-radius: 4px;
 			margin-bottom: 4px;
-			background-image: linear-gradient(to bottom, rgb(245, 245, 245) 0%, #E9F8FF 100%);
+			background-image: linear-gradient(to top, rgb(245, 245, 245) 0%, #E9F8FF 100%);
 		}
+
 		.pane3D {
 			padding: 3px;
 			width: 900px;
@@ -33,18 +35,22 @@
 			background-image: linear-gradient(to bottom, rgb(82, 129, 168) 0%, rgb(110, 212, 251) 100%);
 			border-radius: 4px;
 		}
+
 		.center {
 			width: 70%;
 			margin-left: 30px;
 			display: inline-block;
 		}
+		
 		.superleft {
 			flex-grow: 1;
 		}
+
 		.left {
 			width: 15%;
 			float: left;
 		}
+
 		.left>div {
 			background-image: linear-gradient(to bottom, rgb(82, 129, 168) 0%, rgb(110, 212, 251) 100%);
 			border-radius: 100%;
@@ -55,10 +61,20 @@
 			margin-bottom: 50px;
 			overflow: auto;
 		}
+
+		.left>div:first-child {
+			margin-top: 0px;
+		}
+
 		.center>div {
 			margin-top: 50px;
 			margin-bottom: 50px;
 		}
+
+		.center>div:first-child {
+			margin-top: 0px;
+		}
+
 		.left>div>div {
 			background-color: #F5F5F5;
 			line-height: 100px;
@@ -68,15 +84,18 @@
 			height: 100px;
 			border-radius: 100%;
 		}
+
 		.right {
 			width: 900px;
 			float: right;
 		}
+
 		.clearfix::after {
 			content: "";
 			clear: both;
 			display: table;
 		}
+
 		.camera {
 			display: inline-block;
 			width: 48.4%;
@@ -84,20 +103,80 @@
 			vertical-align: top;
 			text-align: center;
 		}
+
 		.camera img {
 			width: 100%;
 			border-radius: 4px;
 		}
+
 		.thermal {
 			display: inline-block;
 			width: 48.4%;
-			margin-left: 2%;
+			margin-left: 2.7%;
 			text-align: center;
 		}
+
 		.thermalBlock {
 			width: 54px;
 			height: 54px;
 			float: left;
+		}
+
+		.timeline {
+			-webkit-appearance: none;
+			width: 100%;
+		}
+
+		.timeline::-webkit-slider-runnable-track {
+			width: 100%;
+			height: 10px;
+			background: #ddd;
+			border: none;
+			border-radius: 8px;
+		}
+
+		.timeline::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			border: none;
+			height: 28px;
+			width: 28px;
+			border-radius: 50%;
+			background: rgb(110, 212, 251);
+			margin-top: -9px;
+		}
+
+		.timeline:focus {
+			outline: none;
+		}
+
+		.timeline:focus::-webkit-slider-runnable-track {
+			background: #CCC;
+		}
+
+		.playButton {
+			width: 25px;
+			height: 25px;
+			left: 50%;
+			margin: auto -27.5px;
+			display: block;
+			text-align: center;
+			margin: auto;
+			margin-top: 5px;
+		}
+
+		.pauseButton {
+			width: 25px;
+			height: 25px;
+			left: 50%;
+			margin: auto -27.5px;
+			display: none;
+			text-align: center;
+			margin: auto;
+			margin-top: 5px;
+		}
+
+		h1 {
+			font-weight: normal;
 		}
 	</style>
 </head>
@@ -105,6 +184,7 @@
 <body>
 	<div style="display: flex;">
 		<div class="superleft">
+			<h1>Data Visualization</h3>
 			<div class="left">
 					<div><div id="temp" style="background-image: url('./data/icons2/temp1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 38px;"></div></div>
 					<div><div id="flame" style="background-image: url('./data/icons2/flame1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 70px;"></div></div>
@@ -123,34 +203,36 @@
 		</div>
 
 		<div class="right">
-				<div style="text-align: center;">
-					<div class="pane3D">
-						<div id="pane3D">
-	
-						</div>
+			<div style="text-align: center;">
+				<div class="pane3D">
+					<div id="pane3D">
+
 					</div>
-					<span style="line-height: 2;">Sensor Rotation</span>
 				</div>
-	
-				<hr style="border: 0; height: 1px; background-color: #CCC; width: 50%; margin: 4px auto 15px auto;" />
-	
-				<div>
-					<div class="camera">
-						<div>
-							<img src="./data/images/1547916889354.jpg" />
-						</div>
-						Webcam Image
+				<span style="line-height: 2;">Sensor Rotation</span>
+			</div>
+
+			<hr style="border: 0; height: 1px; background-color: #CCC; width: 50%; margin: 4px auto 15px auto;" />
+
+			<div>
+				<div class="camera">
+					<div>
+						<img src="./data/images/1547916889354.jpg" />
 					</div>
-	
-					<div class="thermal">
-						<div id="thermalCamera">
-	
-						</div>
-						Thermal Camera
+					Webcam Image
+				</div>
+
+				<div class="thermal">
+					<div id="thermalCamera">
+
 					</div>
+					Thermal Camera
 				</div>
 			</div>
+		</div>
 	</div>
+
+	<div id="timeline"></div>
 </body>
 
 </html>

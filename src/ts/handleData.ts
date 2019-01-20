@@ -32,8 +32,6 @@ export default function handleData(json: SensorData, temperature: any[][], therm
 	let lightbulbValue = Math.ceil((5 - 1) / (Math.pow(2, 16) - 0) * (json.proximity.proximity + Math.pow(2, 16) / 10))
 	let proximityValue = Math.ceil((3 - 1) / (Math.pow(2, 16) - 0) * (json.proximity.proximity + Math.pow(2, 16) / 10))
 
-	console.log(tempValue, flameValue, cloudValue, lightbulbValue, proximityValue)
-
 	document.getElementById("temp").style.backgroundImage = `url(./data/icons2/temp${tempValue}.png)`
 	document.getElementById("flame").style.backgroundImage = `url(./data/icons2/flame${flameValue}.png)`
 	document.getElementById("cloud").style.backgroundImage = `url(./data/icons2/cloud${cloudValue}.png)`

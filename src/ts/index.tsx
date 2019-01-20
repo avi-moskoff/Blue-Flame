@@ -4,6 +4,7 @@ import { Pane3D } from "./3d"
 import ThermalCamera from "./thermalCamera";
 import handleData from "./handleData";
 import Graph from "./graph"
+import Timeline from "./timeline";
 
 let pane = ReactDOM.render(<Pane3D></Pane3D>, document.getElementById("pane3D")) as Pane3D
 
@@ -14,6 +15,8 @@ ReactDOM.render(<Graph graphName="TVOC" unitName="PPB"></Graph>, document.getEle
 ReactDOM.render(<Graph graphName="Light" unitName=""></Graph>, document.getElementById("lightbulbGraph")) as Graph
 ReactDOM.render(<Graph graphName="CO2 Level" unitName="PPM"></Graph>, document.getElementById("cloudGraph")) as Graph
 ReactDOM.render(<Graph graphName="Proximity" unitName=""></Graph>, document.getElementById("proximityGraph")) as Graph
+
+ReactDOM.render(<Timeline></Timeline>, document.getElementById("timeline")) as Timeline
 
 setTimeout(() => {
 	handleData({
