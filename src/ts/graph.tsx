@@ -2,6 +2,8 @@ import * as React from "react"
 
 import * as ReactChart from 'react-chartjs-2'
 
+import {Data} from './data'
+
 interface state {
 	date: Date,
 	data: number[]
@@ -31,6 +33,9 @@ export default class Graph extends React.Component<properties, state> {
 	}
 
 	render() {
+
+		new Data().getClosestImage(1)
+
 		return (
 			<div>
 				<ReactChart.Line data={{
