@@ -37,12 +37,14 @@
 		}
 
 		.center {
-			width: 30%;
+			width: 57%;
+			/* height: 5000px; */
 			float: left;
+			margin-left: 30px;
 		}
 
 		.superleft {
-			width: 50%;
+			width: 45%;
 			float: left;
 		}
 
@@ -57,7 +59,8 @@
 			width: 100px;
 			height: 100px;
 			padding: 3px;
-			margin-bottom: 20px;
+			margin-top: 50px;
+			margin-bottom: 50px;
 			overflow: auto;
 		}
 
@@ -113,27 +116,33 @@
 
 <body>
 	<div>
-		<div class="clearfix">
-			<div class="left">
-				<div>
-					<div id="temp" style="background-image: url('./data/icons/temp1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 45px;"></div>
+		<div class="superleft">
+			<div class="clearfix">
+				<div class="left">
+					<div>
+						<div id="temp" style="background-image: url('./data/icons/temp1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 45px;"></div>
+					</div>
+					<div>
+						<div id="flame" style="background-image: url('./data/icons/flame1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div>
+					</div>
+					<div>
+						<div id="lightbulb" style="background-image: url('./data/icons/lightbulb1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div>
+					</div>
+					<div>
+						<div id="cloud" style="background-image: url('./data/icons/cloud1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 70px;"></div>
+					</div>
+					<div>
+						<div id="proximity" style="background-image: url('./data/icons/proximity1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div>
+					</div>
 				</div>
-				<div>
-					<div id="flame" style="background-image: url('./data/icons/flame1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div>
-				</div>
-				<div>
-					<div id="lightbulb" style="background-image: url('./data/icons/lightbulb1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div>
-				</div>
-				<div>
-					<div id="cloud" style="background-image: url('./data/icons/cloud1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 70px;"></div>
-				</div>
-				<div>
-					<div id="proximity" style="background-image: url('./data/icons/proximity1.png'); background-repeat: no-repeat; background-position: 50%; background-size: 55px;"></div>
-				</div>
-			</div>
 
-			<div class="center">
-				<div id="graph"></div>
+				<div class="center">
+					<div id="tempGraph"></div>
+					<div id="flameGraph"></div>
+					<div id="lightbulbGraph"></div>
+					<div id="cloudGraph"></div>
+					<div id="proximityGraph"></div>
+				</div>
 			</div>
 		</div>
 
