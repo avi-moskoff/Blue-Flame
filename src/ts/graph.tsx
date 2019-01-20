@@ -47,6 +47,11 @@ export default class Graph extends React.Component<properties, state> {
 						data: this.state.data
 					}]
 				}} height={106} options={{
+					title: {
+						display: true,
+						text: `${this.props.graphName} (${this.props.unitName})`,
+						fontFamily: "Open Sans"
+					},
 					maintainAspectRatio: false,
 					legend: {
 						display: false

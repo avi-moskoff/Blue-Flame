@@ -12,9 +12,9 @@ let thermal = ReactDOM.render(<ThermalCamera></ThermalCamera>, document.getEleme
 
 let temperatureGraph = ReactDOM.render(<Graph graphName="Temperature" unitName="Celcius"></Graph>, document.getElementById("tempGraph")) as Graph
 let tvocGraph = ReactDOM.render(<Graph graphName="TVOC" unitName="PPB"></Graph>, document.getElementById("flameGraph")) as Graph
-let lightGraph = ReactDOM.render(<Graph graphName="Light" unitName=""></Graph>, document.getElementById("lightbulbGraph")) as Graph
+let lightGraph = ReactDOM.render(<Graph graphName="Light" unitName="Units"></Graph>, document.getElementById("lightbulbGraph")) as Graph
 let co2Graph = ReactDOM.render(<Graph graphName="CO2 Level" unitName="PPM"></Graph>, document.getElementById("cloudGraph")) as Graph
-let proximityGraph = ReactDOM.render(<Graph graphName="Proximity" unitName=""></Graph>, document.getElementById("proximityGraph")) as Graph
+let proximityGraph = ReactDOM.render(<Graph graphName="Proximity" unitName="Units"></Graph>, document.getElementById("proximityGraph")) as Graph
 
 ReactDOM.render(<Timeline pane={pane} thermal={thermal} temperatueGraph={temperatureGraph} tvocGraph={tvocGraph} lightGraph={lightGraph} co2Graph={co2Graph} proximityGraph={proximityGraph}></Timeline>, document.getElementById("timeline")) as Timeline
 

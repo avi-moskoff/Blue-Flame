@@ -3,7 +3,7 @@ import { Pane3D } from "./3d";
 import SensorData from "./sensorData"
 import IrCam from "./irCam";
 
-export default function handleData(json: SensorData, temperature: IrCam, thermalCamera: ThermalCamera, pane3d: Pane3D) {
+export default function handleData(imageSrc: string, json: SensorData, temperature: IrCam, thermalCamera: ThermalCamera, pane3d: Pane3D) {
 	let array = temperature.thermalarray
 	
 	pane3d.setBoardRotation(json.orientation.y * Math.PI / 180, json.orientation.x * Math.PI / 180, json.orientation.z * Math.PI / 180)
@@ -25,4 +25,7 @@ export default function handleData(json: SensorData, temperature: IrCam, thermal
 	document.getElementById("cloud").style.backgroundImage = `url(./data/icons2/cloud${cloudValue}.png)`
 	document.getElementById("lightbulb").style.backgroundImage = `url(./data/icons2/lightbulb${lightbulbValue}.png)`
 	document.getElementById("proximity").style.backgroundImage = `url(./data/icons2/proximity${proximityValue}.png)`
+
+	let image = document.getElementById("image") as HTMLImageElement
+	image.src = imageSrc
 }

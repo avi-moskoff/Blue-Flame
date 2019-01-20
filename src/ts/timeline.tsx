@@ -6,6 +6,32 @@ import { Pane3D } from "./3d";
 import ThermalCamera from "./thermalCamera";
 import Graph from "./graph";
 
+
+function fancyInterpolation(percent, ranges) {
+	for(let range of ranges) {
+		if(percent < range.limit) {
+			let fakePercent = percent / range.limit
+			// return the interpolated value
+			return (range.max - range.min) * fakePercent + range.min
+		}
+	}
+
+	return undefined
+}
+
+// peacewise lerping:
+/*
+	[{
+		min: 23875932,
+		max: 23895243, 
+		limit: 0.25
+	}, {
+		min: 3589135,
+		max: 1389531289,
+		limit: 0.5
+	}]
+*/
+
 interface props {
 	pane: Pane3D,
 	thermal: ThermalCamera,
@@ -91,7 +117,7 @@ export default class Timeline extends React.Component<props> {
 
 		let tempData = this.data.getIrCam(unixTime)
 		let sensorData = this.data.getSensorData(unixTime)
-		handleData(sensorData, tempData, this.props.thermal, this.props.pane)
+		handleData("", sensorData, tempData, this.props.thermal, this.props.pane)
 
 		let sensorArray = this.data.getSensorDataArray(unixTime)
 		// build various array values
