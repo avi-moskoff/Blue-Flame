@@ -3,7 +3,7 @@ import * as React from "react"
 import * as ReactChart from 'react-chartjs-2'
 
 class state {
-    date: Date
+	date: Date
 }
 
 interface properties {
@@ -12,16 +12,16 @@ interface properties {
 }
 
 export default class Graph extends React.Component<properties, state> {
-    constructor(props) {
-        super(props);
-        this.state = { date: new Date() };
-    }
+	constructor(props) {
+		super(props);
+		this.state = { date: new Date() };
+	}
 
-    render() {
-        return (
-            <div>
-                <ReactChart.Line data={{
-                    labels: ['0','1','2', '3', '4'],
+	render() {
+		return (
+			<div>
+				<ReactChart.Line data={{
+					labels: ['0', '1', '2', '3', '4'],
 					datasets: [{
 						label: this.props.graphName,
 						fill: false,
@@ -32,8 +32,8 @@ export default class Graph extends React.Component<properties, state> {
 						pointHoverBackgroundColor: "rgb(110, 212, 251)",
 						pointHoverBorderColor: "rgb(110, 212, 251)",
 						data: [1, 2, 3, 20, 10]
-					 }]
-                }} height={106} options={{
+					}]
+				}} height={106} options={{
 					maintainAspectRatio: false,
 					legend: {
 						display: false
@@ -44,7 +44,7 @@ export default class Graph extends React.Component<properties, state> {
 							title: (item) => this.props.graphName
 						},
 					},
-					scales:{
+					scales: {
 						xAxes: [{
 							display: false
 						}],
@@ -56,7 +56,7 @@ export default class Graph extends React.Component<properties, state> {
 						padding: 10
 					}
 				}} />
-            </div>
-        );
-    }
+			</div>
+		);
+	}
 }
